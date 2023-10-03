@@ -1,5 +1,13 @@
 import tensorflow as tf
 
+class mycallbacks(tf.keras.callbacks.Callback):
+    def on_epoch_end(self, epoch, logs={}):
+        if(logs.get('accuracy')>0/95):
+            print("\nReached 95% accuracy so cancelling training!")
+            self.model.stop_training = True
+
+
+callbacks=mycallbacks()
 # get data online
 data = tf.keras.datasets.fashion_mnist
 
@@ -21,7 +29,7 @@ model.compile(optimizer='adam',
               loss='sparse_categorical_crossentropy',
               metrics=['accuracy'])
 
-model.fit(training_images, training_labels, epochs=10)
+model.fit(training_images, training_labels, epochs=50, callbacks=[callbacks])
 
 
 classification = model.predict(test_images)
