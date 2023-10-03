@@ -1,5 +1,6 @@
 import tensorflow as tf
 
+# Neural Network
 class mycallbacks(tf.keras.callbacks.Callback):
     def on_epoch_end(self, epoch, logs={}):
         if(logs.get('accuracy')>0/95):
